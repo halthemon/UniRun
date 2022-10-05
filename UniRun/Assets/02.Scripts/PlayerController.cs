@@ -48,16 +48,23 @@ public class PlayerController : MonoBehaviour
         playerRigidbody.velocity = Vector2.zero;
         isDead = true;
     }
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)// 장애물과의 충돌
     {
-        // 장애물과의 충돌
+        if(other.tag == "Dead" && !isDead)
+        {
+            Die();
+        }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)// 바닥과의 감지 (닿음)
     {
-        // 바닥과의 감지 (닿음)
+        if (collision.contacts[0].normal.y > 0.7f)
+        {
+            isGrounded = true;
+            jumpCount = 0;
+        }
     }
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnCollisionExit2D(Collision2D collision)// 바닥과의 감지2 (안닿음)
     {
-        // 바닥과의 감지2 (안닿음)
+        isGrounded = false;
     }
 }
