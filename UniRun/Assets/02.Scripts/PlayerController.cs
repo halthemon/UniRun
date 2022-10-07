@@ -47,12 +47,16 @@ public class PlayerController : MonoBehaviour
 
         playerRigidbody.velocity = Vector2.zero;
         isDead = true;
+
+        GameManager.instance.OnPlayerDead();
     }
     private void OnTriggerEnter2D(Collider2D other)// 장애물과의 충돌
     {
         if(other.tag == "Dead" && !isDead)
         {
             Die();
+
+            
         }
     }
     private void OnCollisionEnter2D(Collision2D collision)// 바닥과의 감지 (닿음)
